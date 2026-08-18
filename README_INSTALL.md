@@ -55,3 +55,40 @@ sudo ./uninstall_jackett_macos
 - **Installation:** `~/Downloads/Jackett/`
 - **Config:** `~/.config/Jackett/`
 - **Launch Agent:** `~/Library/LaunchAgents/org.user.Jackett.plist`
+
+## Building from Source
+
+### Requirements
+
+- .NET SDK 8.0+ or 9.0+
+
+### Build
+
+```bash
+cd /path/to/Jackett-master/src
+dotnet build Jackett.sln
+```
+
+### Running Tests
+
+```bash
+dotnet test Jackett.sln
+```
+
+#### Test Environment Requirements
+
+Some tests require additional dependencies:
+
+| Dependency | Required For | Install |
+|------------|--------------|--------|
+| Mono | .NET Framework 4.7.1 tests | `brew install mono` |
+| Chrome | Integration tests | Download from Google |
+| ChromeDriver | Integration tests | `brew install chromedriver` |
+
+#### Known Test Issues
+
+- **Integration tests**: Require Chrome and ChromeDriver in PATH
+- **Net471 tests**: Require Mono runtime on macOS
+- **TestFixResultsOriginPublishDate**: May fail due to upstream date handling bug ([GitHub issue](https://github.com/Jackett/Jackett/issues))
+
+Core unit tests (239/246) pass without these dependencies.
